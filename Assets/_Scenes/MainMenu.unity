@@ -214,6 +214,16 @@ Prefab:
       propertyPath: m_Name
       value: Canvas_GoHomeONly
       objectReference: {fileID: 0}
+    - target: {fileID: 224936493227291790, guid: f472eec09f8f1004fab03e24c01fa3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -26.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224936493227291790, guid: f472eec09f8f1004fab03e24c01fa3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 51.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f472eec09f8f1004fab03e24c01fa3cc, type: 2}
   m_IsPrefabParent: 0

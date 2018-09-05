@@ -16,6 +16,7 @@ public class MyEnums : MonoBehaviour {
 		Type_Mouminek,
 		Type_Foxy,
 		Type_LittleBrother,
-		Type_Froggy
+		Type_Froggy,
+		Type_Zoe
     }
 }
