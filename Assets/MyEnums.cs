@@ -11,6 +11,11 @@ public class MyEnums : MonoBehaviour {
         Type_Cmonster,
         Type_Lion,
         Type_Pasha,
-        Type_Minnie
+        Type_Minnie,
+		Type_Mickey,
+		Type_Mouminek,
+		Type_Foxy,
+		Type_LittleBrother,
+		Type_Froggy
     }
 }
