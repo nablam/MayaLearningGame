@@ -12,13 +12,18 @@ public class DinoCTRL : MonoBehaviour {
     void UpdateANimatorState() {
         _animator.SetInteger("DinoState", (int)_curDinoStateState);
     }
+    public void SetDinoState(int argState) {
+        _curDinoStateState= (MyEnums.DinoState) argState ;
 
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Alpha0)) { _curDinoStateState = MyEnums.DinoState.Idle; }
-        else
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { _curDinoStateState = MyEnums.DinoState.Walking; }
-        else
-        if (Input.GetKeyDown(KeyCode.Space)) { _animator.SetTrigger("TrigEat"); }
+    }
+
+    public void TriggerEat() { _animator.SetTrigger("TrigEat"); }
+    void Update () {
+        //if (Input.GetKeyDown(KeyCode.Alpha0)) { _curDinoStateState = MyEnums.DinoState.Idle; }
+        //else
+        //if (Input.GetKeyDown(KeyCode.Alpha1)) { _curDinoStateState = MyEnums.DinoState.Walking; }
+        //else
+        //if (Input.GetKeyDown(KeyCode.Space)) { _animator.SetTrigger("TrigEat"); }
         UpdateANimatorState();
 
     }
