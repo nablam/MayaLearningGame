@@ -25,4 +25,16 @@ public class DinoMover : MonoBehaviour {
         _dinoCtrl.SetDinoState(Mathf.Abs(moveHorizontal));
 
     }
+
+    public void MoveForward_ToLeft() {
+        moveHorizontal = -1;
+        transform.localScale = new Vector3(1, 1, 1);
+    }
+    public void MoveForward_ToRight()
+    {
+        moveHorizontal = 1;
+        transform.localScale = new Vector3(-1, 1, 1);
+    }
+    public void Stop_TranslatinginUpdate() { }
+
 }

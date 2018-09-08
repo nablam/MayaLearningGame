@@ -16,15 +16,30 @@ public class DinoCTRL : MonoBehaviour {
         _curDinoStateState= (MyEnums.DinoState) argState ;
 
     }
-
-    public void TriggerEat() { _animator.SetTrigger("TrigEat"); }
-    void Update () {
-        //if (Input.GetKeyDown(KeyCode.Alpha0)) { _curDinoStateState = MyEnums.DinoState.Idle; }
-        //else
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) { _curDinoStateState = MyEnums.DinoState.Walking; }
-        //else
-        //if (Input.GetKeyDown(KeyCode.Space)) { _animator.SetTrigger("TrigEat"); }
-        UpdateANimatorState();
+    public void Animate_Advancing()
+    {
+        _animator.speed = 1;
+        _animator.SetInteger("DinoState", (int)MyEnums.DinoState.Walking);
+    }
+    public void Animate_Backingup()
+    {
+        _animator.speed = -1;
+        _animator.SetInteger("DinoState", (int)MyEnums.DinoState.Walking);
 
     }
+
+    public void TriggerEat()
+    {
+        _animator.speed = 1;
+        _animator.SetTrigger("TrigEat");
+    }
+    //void Update () {
+    //    //if (Input.GetKeyDown(KeyCode.Alpha0)) { _curDinoStateState = MyEnums.DinoState.Idle; }
+    //    //else
+    //    //if (Input.GetKeyDown(KeyCode.Alpha1)) { _curDinoStateState = MyEnums.DinoState.Walking; }
+    //    //else
+    //    //if (Input.GetKeyDown(KeyCode.Space)) { _animator.SetTrigger("TrigEat"); }
+    //    UpdateANimatorState();
+
+    //}
 }
