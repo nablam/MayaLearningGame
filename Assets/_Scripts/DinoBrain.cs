@@ -8,6 +8,7 @@ public class DinoBrain : MonoBehaviour {
     int FoodDirection = 0;
     float DistToFood = -1f; //enforce negative value as NOFOOD
     float speed = 0.038f;
+    float mouthOffset = 4.2f;
     Animator _animator;
     MyEnums.DinoState _curState;
     void Awake()
@@ -50,7 +51,7 @@ public class DinoBrain : MonoBehaviour {
         _animator.speed = 1;
         _animator.SetTrigger("TrigEat");
     }
-    void CheckDistIfPossible()
+    void CheckDistIfPossibleEatOnce()
     {
         if (FoodTargetObject != null)
         {
@@ -62,7 +63,7 @@ public class DinoBrain : MonoBehaviour {
             Debug.Log("YOO NO DIST FOOD");
         }
 
-        if (DistToFood > 0.1 && DistToFood < 4.2f &&  _curState != MyEnums.DinoState.Idle)
+        if (DistToFood > 0.1 && DistToFood < mouthOffset /*&&  _curState != MyEnums.DinoState.Idle*/)
         {
             Action_EatFood();
             Action_WaitForFood();//anim should play through then go to idle 
@@ -73,17 +74,18 @@ public class DinoBrain : MonoBehaviour {
     void Start()
     {
         Action_WaitForFood();
+        FoodTargetObject = GameObject.FindGameObjectWithTag("DinoFood");
         HereIsSomeAmAM(FoodTargetObject);
     }
 
     // Update is called once per frame
     void Update () {
-
+        Debug.Log(DistToFood);
         if (Input.GetKey(KeyCode.M)) {
             if (FoodTargetObject != null)
             {
                 Action_WaitForFood();
-                HereIsSomeAmAM(FoodTargetObject);
+                HereIsSomeAmAM(GameObject.FindGameObjectWithTag("DinoFood"));
                 Action_TurnToFood();
                 Action_MoveToFood();
             }
@@ -94,8 +96,9 @@ public class DinoBrain : MonoBehaviour {
         }
 
         if (!_moveToFoodUpdate) return;
-        CheckDistIfPossible();
-        transform.Translate(new Vector3(FoodDirection,0,0) * speed);
+        CheckDistIfPossibleEatOnce();
+        
+        transform.Translate(new Vector3((DistToFood < mouthOffset )? 1:-1, 0,0) * speed);
 
     }
 }
