@@ -10,12 +10,34 @@ public class DinoBrain : MonoBehaviour {
     float speed = 0.038f;
     Animator _animator;
     MyEnums.DinoState _curState;
+    int CurSceneFoodIndex = 0;
+   public GameObject[] SceneFoods;
+    Queue<GameObject> FoodQueue;
+    bool StillFoodOnTheTable = true;
     void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        FoodQueue = new Queue<GameObject>();
+
+    }
+    void Start() {
+        SceneFoods = GameObject.FindGameObjectsWithTag("DinoFood");
+        for (int x = 0; x < SceneFoods.Length; x++) {
+            FoodQueue.Enqueue(SceneFoods[x]);
+        }
+        Action_WaitForFood();
+        FoodTargetObject = FoodQueue.Dequeue();
+        HereIsSomeAmAM(FoodTargetObject);
+        StartCoroutine(WaitBeforeEating(5));
+    }
+ 
+    IEnumerator WaitBeforeEating(int argSec)
+    {
+        yield return new WaitForSeconds(argSec);
+        HuntForFood();
     }
 
-  
+
     //WaitForFood
     public void Action_WaitForFood()
     {
@@ -66,36 +88,62 @@ public class DinoBrain : MonoBehaviour {
         {
             Action_EatFood();
             Action_WaitForFood();//anim should play through then go to idle 
-            Destroy(FoodTargetObject,4f);
+            StartCoroutine(KillFoodAndLookForNext());
         }
     }
 
-    void Start()
-    {
-        Action_WaitForFood();
-        HereIsSomeAmAM(FoodTargetObject);
+    IEnumerator KillFoodAndLookForNext() {
+        yield return new WaitForSeconds(3);
+        Destroy(FoodTargetObject);
+        if (FoodQueue.Count > 0)
+        {
+            FoodTargetObject = FoodQueue.Dequeue();
+            //---------------------------------------------------if no food do wait and go home
+            StartCoroutine(WaitBeforeEating(2));
+        }
+
+        else {
+            StillFoodOnTheTable = false;
+            Action_MoveToFood(); //will keep sending him moving in whatever direction he was 
+        }
     }
 
+
+    void HuntForFood()
+    {
+        if (FoodTargetObject != null)
+        {
+            Action_WaitForFood();
+            HereIsSomeAmAM(FoodTargetObject);
+            Action_TurnToFood();
+            Action_MoveToFood();
+        }
+        else
+        {
+            Debug.Log("no food found");
+        }
+    }
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetKey(KeyCode.M)) {
-            if (FoodTargetObject != null)
-            {
-                Action_WaitForFood();
-                HereIsSomeAmAM(FoodTargetObject);
-                Action_TurnToFood();
-                Action_MoveToFood();
-            }
-            else {
-                Debug.Log("no food found");
-            }
-       
-        }
 
         if (!_moveToFoodUpdate) return;
         CheckDistIfPossible();
         transform.Translate(new Vector3(FoodDirection,0,0) * speed);
 
+        HackWrapArround();
+    }
+
+    //the find food algo is terrible. 
+    // dino may start walking to its food wiyout facing it , so ... here you  go 
+    void HackWrapArround() {
+        if (StillFoodOnTheTable)
+        {
+            if (transform.position.x <= -14f) { transform.position = new Vector3(13, transform.position.y, transform.position.z); }
+            if (transform.position.x >= 14f) { transform.position = new Vector3(-13, transform.position.y, transform.position.z); }
+        }
+        else {
+            Debug.Log("going home");
+        }
     }
 }

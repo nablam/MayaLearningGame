@@ -1,10 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 public class GenericDraggableRigidBody : MonoBehaviour {
 
-    float LowestY = -4f;
+
+    float _minY = -5f;
+    float _maxY = 5f;
+    float _minX = -7.5f;
+    float _maxX = 7.5f;
+
+    float _margin = 0.2f; //if object hits wall, place it off the wall by this margin
     private Vector3 offset;
     Rigidbody2D rb;
     void Awake()
@@ -40,25 +46,70 @@ public class GenericDraggableRigidBody : MonoBehaviour {
         }
 
         rb.freezeRotation = false;
-        rb.velocity = new Vector2(0, 0);
+      //  rb.velocity = new Vector2(0, 0);
         rb.gravityScale = 2;
     }
     private void FixedUpdate()
     {
         CheckOutOfBOundLow();
+        CheckOutOfBOundLeft();
+        CheckOutOfBOundRight();
+        CheckOutOfBOundTop();
     }
 
-    bool isOutOfBound = false;
     void CheckOutOfBOundLow() {
-        if (transform.position.y <= LowestY)
+        if (transform.position.y <= _minY  )
         {
-            isOutOfBound = true;
             rb.freezeRotation = true;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY;
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
             rb.isKinematic = true;
-            transform.position = new Vector3(this.transform.position.x, LowestY, this.transform.position.z);
+            transform.position = new Vector3(this.transform.position.x, _minY, this.transform.position.z);
+        }
+
+    }
+
+    void CheckOutOfBOundLeft()
+    {
+        if (transform.position.x <= _minX)
+        {
+            rb.freezeRotation = true;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.velocity = new Vector2(3, 0);
+            rb.gravityScale = 0;
+            //rb.isKinematic = true;
+            transform.position = new Vector3(_minX+_margin, this.transform.position.y, this.transform.position.z);
+        }
+    }
+    void CheckOutOfBOundRight()
+    {
+        if (transform.position.x >= _maxX)
+        {
+            rb.freezeRotation = true;
+            transform.position = new Vector3(_maxX - _margin, this.transform.position.y, this.transform.position.z);
+            // rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            //rb.velocity = new Vector2(-3, 0);
+            rb.AddForce(Vector2.right * 2);
+            rb.gravityScale = 2;
+            //rb.isKinematic = true;
+        }
+    }
+
+
+    void CheckOutOfBOundTop()
+    {
+        if (transform.position.y >= _maxY)
+        {
+            
+            rb.freezeRotation = true;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            rb.isKinematic = true;
+            transform.position = new Vector3(this.transform.position.x, _maxY-_margin, this.transform.position.z);
+            rb.gravityScale = 2;
+
         }
     }
 }
