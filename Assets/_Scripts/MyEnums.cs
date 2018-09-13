@@ -25,4 +25,10 @@ public class MyEnums : MonoBehaviour {
         Idle,
         Walking
     }
+
+    public enum ScrolingState {
+        LeftScrolling, //terrain move Right ro left
+        Stopped,
+        RightScrolling
+    }
 }
