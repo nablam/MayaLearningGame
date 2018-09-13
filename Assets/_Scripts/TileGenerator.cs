@@ -53,6 +53,21 @@ public class TileGenerator : MonoBehaviour {
     }
 
 
+    public GameObject BuildSeaTile(int argHeight, string argName)
+    {
+        argHeight = 1;
+        GameObject Column = new GameObject();
+        for (int h = 0; h < argHeight; h++)
+        {
+            GameObject Tile = Instantiate(TileWater_Sea);
+            Tile.transform.position += new Vector3(0, h * TileSize, 0);
+            Tile.transform.parent = Column.transform;
+            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName + "_" + h.ToString();
+        }
+        Column.name = argName;
+        return Column;
+    }
+
 
 
 

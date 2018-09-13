@@ -39,7 +39,6 @@ public class VisColsMover : MonoBehaviour {
    else
            if (Input.GetKey(KeyCode.RightArrow)) { DoScroll_Left_toRight(); }
         else
-
             DoNothing();
     }
 }

@@ -7,6 +7,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     public TileGenerator tileGen;
     int totalVisibleTiles = 11;
+    int SeaTileMax = 5;
 
     GameObject[] ActiveTiles;
     public GameObject[] GetVisibleColumns() { return this.ActiveTiles; }
@@ -18,14 +19,30 @@ public class VisibleColumnsCtrl : MonoBehaviour
         ColumnNumType = new List<int>();
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
         ColumnNumType.Add(2);
         ColumnNumType.Add(2);
         ColumnNumType.Add(3);
         ColumnNumType.Add(3);
         ColumnNumType.Add(2);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(1);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(3);
+        ColumnNumType.Add(3);
         ColumnNumType.Add(2);
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
+        ColumnNumType.Add(2);
         ColumnNumType.Add(2);
         ColumnNumType.Add(2);
         ColumnNumType.Add(3);
@@ -49,7 +66,11 @@ public class VisibleColumnsCtrl : MonoBehaviour
     {
         for (int c = 0; c < totalVisibleTiles; c++)
         {
-            GameObject Column = tileGen.BuildTestColumn(ColumnNumType[c], "base /n" + c.ToString());
+            GameObject Column;
+            if (c< SeaTileMax)
+                Column = tileGen.BuildSeaTile(ColumnNumType[c], "base /n" + c.ToString());
+            else
+                Column = tileGen.BuildTestColumn(ColumnNumType[c], "base /n" + c.ToString());
             Column.transform.position += new Vector3((RightIndex * Xoffset) - 12.8f, -5.2f, 0);
             ActiveTiles[c] = Column;
             RightIndex++;
@@ -103,7 +124,15 @@ public class VisibleColumnsCtrl : MonoBehaviour
             LeftIndex--;
             RightIndex--;
             //make new Right column 
-            GameObject Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+            GameObject Column;
+            if (LeftIndex < SeaTileMax)
+            {
+                Column = tileGen.BuildSeaTile(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+            }
+            else
+            {
+                Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+            }
             Column.transform.position += new Vector3(cashedFirstTilePosX + 0.1f, -5.2f, 0);
 
             ActiveTiles[0] = Column;
