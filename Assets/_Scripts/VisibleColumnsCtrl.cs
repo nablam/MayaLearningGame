@@ -15,7 +15,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     float Xoffset;
     private void Awake()
     {
-
+        GenerateMap();
         ColumnNumType = new List<int>();
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
@@ -23,34 +23,12 @@ public class VisibleColumnsCtrl : MonoBehaviour
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(1);
-        ColumnNumType.Add(2);
+      
+        foreach (int x in MapLogicalStates)
+        {
+            ColumnNumType.Add(x);
+
+        }
         ActiveTiles = new GameObject[totalVisibleTiles];
     }
 
@@ -147,5 +125,60 @@ public class VisibleColumnsCtrl : MonoBehaviour
         Add_Right___Kill_LEft();
         Add_Left___Kill_Right();
 
+    }
+
+
+    int[] MapLogicalStates;
+    void GenerateMap() {
+        MapLogicalStates = new int[100];
+        MapLogicalStates[0] = 1;
+        MapLogicalStates[1] = 1;
+        MapLogicalStates[2] = 1;
+        MapLogicalStates[3] = 1;
+        MapLogicalStates[4] = 1;
+        for (int x = 5; x < 100; x++) {
+            MapLogicalStates[x] = DecideFromHere(MapLogicalStates[x - 1]);
+        }
+
+    }
+
+    int DecideFromHere(int arglast) {
+        int output = 0;
+        int rand = Random.Range(0, 100);
+        if (arglast == 1) {
+
+            if (rand > 50)
+            {
+                output = 2;
+            }
+            else
+                output = 1;
+        }
+        else if (arglast == 2)
+        {
+            if (rand < 33)
+            {
+                output = 1;
+            }
+            else
+                 if (rand >=33 && rand< 66)
+            {
+                output = 2;
+            }
+            else
+
+            output = 3;
+        }
+        else
+        if (arglast == 3)
+        {
+            if (rand > 50)
+            {
+                output = 2;
+            }
+            else
+                output = 3;
+        }
+        return output;
     }
 }

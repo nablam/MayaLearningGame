@@ -31,4 +31,10 @@ public class MyEnums : MonoBehaviour {
         Stopped,
         RightScrolling
     }
+
+    public enum HillType {
+        Ascend,
+        Flat,
+        Descend
+    }
 }
