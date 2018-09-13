@@ -18,16 +18,16 @@ public class VisibleColumnsCtrl : MonoBehaviour {
         ColumnNumType.Add(1);
         ColumnNumType.Add(2);
         ColumnNumType.Add(3);
-        ColumnNumType.Add(3);
+        ColumnNumType.Add(2);
         ColumnNumType.Add(1);
         ColumnNumType.Add(2);
+        ColumnNumType.Add(3);
+        ColumnNumType.Add(2);
+        ColumnNumType.Add(1);
         ColumnNumType.Add(2);
         ColumnNumType.Add(3);
         ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(2);
-        ColumnNumType.Add(3);
-        ColumnNumType.Add(2);
+        ColumnNumType.Add(1);
         ColumnNumType.Add(2);
         ColumnNumType.Add(2);
         ColumnNumType.Add(3);
@@ -76,7 +76,7 @@ public class VisibleColumnsCtrl : MonoBehaviour {
         RIGHTMOST_TILE = ActiveTiles[totalVisibleTiles - 1];
         cashedFirstTilePosX = ActiveTiles[0].transform.position.x;
         cashedLastTilePosX = ActiveTiles[totalVisibleTiles - 1].transform.position.x;
-
+        
          
     }
     void Start () {
@@ -137,10 +137,12 @@ public class VisibleColumnsCtrl : MonoBehaviour {
                 ActiveTiles[l] = ActiveTiles[l + 1]; //now we have a duplicat at the end and no ref to the firstguy except for FIRSTTILE ref
             }
             Destroy(LEFTMOST_TILE);
+            
 
             //make new Right column 
             GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
-            Column.transform.position += new Vector3(cashedLastTilePosX, -5.2f, 0);            
+            Column.transform.position += new Vector3(cashedLastTilePosX, -5.2f, 0);
+            LeftIndex++;
             RightIndex++;
             ActiveTiles[ActiveTiles.Length - 1] = Column;
             RIGHTMOST_TILE = Column;
@@ -149,10 +151,35 @@ public class VisibleColumnsCtrl : MonoBehaviour {
 
     }
 
+    void Add_Left___Kill_Right()
+    {
+
+        if (LeftIndex == 0) return; //SendSignal stop moving
+        if (LEFTMOST_TILE.transform.position.x > (cashedFirstTilePosX + Xoffset))
+        {
+            //sift active array whille keeping ref to LEFTMOSET
+            for (int l = ActiveTiles.Length - 1; l >0 ; l--)
+            {
+                ActiveTiles[l] = ActiveTiles[l - 1]; //now we have a duplicat at first
+            }
+            Destroy(RIGHTMOST_TILE);
+            LeftIndex--;
+            RightIndex--;
+            //make new Right column 
+            GameObject Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+            Column.transform.position += new Vector3(cashedFirstTilePosX+0.1f, -5.2f, 0);
+            
+            ActiveTiles[0] = Column;
+            RIGHTMOST_TILE = ActiveTiles[ActiveTiles.Length-1];
+            LEFTMOST_TILE = ActiveTiles[0];
+        }
+
+    }
+
     void Update () {
 
         Add_Right___Kill_LEft();
-
+        Add_Left___Kill_Right();
         //if(ActiveTiles[totalVisibleTiles - 1] == null) AddColumnLeft();
         //if (ActiveTiles[totalVisibleTiles - 1].transform.position.x > cashedLastTilePosX)
         //{
