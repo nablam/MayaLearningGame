@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VisColsMover : MonoBehaviour {
     VisibleColumnsCtrl _vcc;
-    
+    float speed = 0.08f;
     void Awake () {
         _vcc = GetComponent<VisibleColumnsCtrl>();
     }
@@ -14,7 +14,7 @@ public class VisColsMover : MonoBehaviour {
         foreach (GameObject go in _vcc.GetVisibleColumns())
         {
             if (go == null) continue;
-            go.transform.Translate(Vector2.left * 0.02f);
+            go.transform.Translate(Vector2.left * speed);
         }
     }
     void DoScroll_Left_toRight()
@@ -22,7 +22,7 @@ public class VisColsMover : MonoBehaviour {
         foreach (GameObject go in _vcc.GetVisibleColumns())
         {
             if (go == null) continue;
-            go.transform.Translate(Vector2.right * 0.02f);
+            go.transform.Translate(Vector2.right * speed);
         }
     }
 
@@ -31,7 +31,7 @@ public class VisColsMover : MonoBehaviour {
         foreach (GameObject go in _vcc.GetVisibleColumns())
         {
             if (go == null) continue;
-            go.transform.Translate(Vector2.zero * 0.02f);
+            go.transform.Translate(Vector2.zero );
         }
     }
     void Update () {
