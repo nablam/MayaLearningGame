@@ -8,7 +8,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     public TileGenerator tileGen;
     int totalVisibleTiles = 11;
     int SeaTileMax = 5;
-
+    int TotalTileSize = 20;
     GameObject[] ActiveTiles;
     public GameObject[] GetVisibleColumns() { return this.ActiveTiles; }
     List<int> ColumnNumType;
@@ -45,7 +45,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
         for (int c = 0; c < totalVisibleTiles; c++)
         {
             GameObject Column;
-            if (c < SeaTileMax)
+            if (c <= SeaTileMax)
                 Column = tileGen.BuildSeaTile(ColumnNumType[c], "base /n" + c.ToString());
             else
                 Column = tileGen.BuildTestColumn(ColumnNumType[c], "base /n" + c.ToString());
@@ -103,7 +103,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
             RightIndex--;
             //make new Right column 
             GameObject Column;
-            if (LeftIndex < SeaTileMax)
+            if (LeftIndex <= SeaTileMax)
             {
                 Column = tileGen.BuildSeaTile(ColumnNumType[LeftIndex], "Rep /n L".ToString());
             }
@@ -130,15 +130,15 @@ public class VisibleColumnsCtrl : MonoBehaviour
     int[] MapLogicalStates;
     void GenerateMap()
     {
-        MapLogicalStates = new int[100];
-        MapLogicalStates[0] = 1;// MyEnums.HillType.Flat;
-        MapLogicalStates[1] = 1;// MyEnums.HillType.Flat;
-        MapLogicalStates[2] = 1;// MyEnums.HillType.Flat;
-        MapLogicalStates[3] = 1;// MyEnums.HillType.Flat;
-        MapLogicalStates[4] = 2;// MyEnums.HillType.Flat;
+        MapLogicalStates = new int[TotalTileSize];
+        MapLogicalStates[0] = 0;// MyEnums.HillType.Flat;
+        MapLogicalStates[1] = 0;// MyEnums.HillType.Flat;
+        MapLogicalStates[2] = 0;// MyEnums.HillType.Flat;
+        MapLogicalStates[3] = 0;// MyEnums.HillType.Flat;
+        MapLogicalStates[4] = 0;// MyEnums.HillType.Flat;
 
 
-        for (int x = 5; x < 100; x++)
+        for (int x = 1; x < TotalTileSize; x++)
         {
             MapLogicalStates[x] = StateChecker(MapLogicalStates[x - 1]);
 
@@ -150,23 +150,56 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     int StateChecker(int arglast) {
         if (arglast == 0) {
-            return 1;
+            int r2 = Random.Range(0, 2); // to 0 again || 1
+            return r2;
         }
         if (arglast == 1)
         {
-            return 2;
+            return 2;//must go to a flat 
         }
         if (arglast == 2)
         {
-            return 3;
+            int r3= Random.Range(0, 3);
+            int finalchoice=6; //  adds more chances of going down . reducing hills
+            if (r3 == 0)
+            { finalchoice = 6; }
+            if (r3 == 1)
+            { finalchoice = 3; }
+            if (r3 == 2)
+            { finalchoice = 2; }
+            return finalchoice;  //random go to 2 again || 3 || 6 
         }
 
         if (arglast == 3)
         {
-            return 1;
+            return 4; //force going to 4
         }
+
+        if (arglast == 4)
+        {
+            return  Random.Range(4, 6); // to 4 again || 5
+        }
+
+        if (arglast == 5)  //to 2  || 6
+        {
+            int r2 = Random.Range(0, 2);
+            int finalchoice = 6; //  adds more chances of going down . reducing hills
+            if (r2 > 0) finalchoice = 6;
+            else
+                finalchoice = 2;
+            return finalchoice; //force going to 4
+        }
+
+        if (arglast == 6)
+        {
+            return 0; //back to 0
+        }
+
+
         return 1;
     }
+
+
 
 }
 
