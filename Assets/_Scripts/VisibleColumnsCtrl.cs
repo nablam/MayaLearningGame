@@ -45,10 +45,10 @@ public class VisibleColumnsCtrl : MonoBehaviour
         for (int c = 0; c < totalVisibleTiles; c++)
         {
             GameObject Column;
-            if (c <= SeaTileMax)
-                Column = tileGen.BuildSeaTile(ColumnNumType[c], "base /n" + c.ToString());
+            if (c <= SeaTileMax )
+                Column = tileGen.BuildSeaTile(ColumnNumType[c], "");
             else
-                Column = tileGen.BuildTestColumn(ColumnNumType[c], "base /n" + c.ToString());
+                Column = tileGen.BuildTestColumn(ColumnNumType[c], "");
             Column.transform.position += new Vector3((RightIndex * Xoffset) - 12.8f, -5.2f, 0);
             ActiveTiles[c] = Column;
             RightIndex++;
@@ -78,7 +78,18 @@ public class VisibleColumnsCtrl : MonoBehaviour
             }
             Destroy(LeftMostTileRef);
             //make new Right column 
-            GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
+            //GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
+            GameObject Column;
+
+            Debug.Log(RightIndex);
+            if (RightIndex >= (TotalTileSize )) //no worries , seablocks were added to the list 
+            {
+                Column = tileGen.BuildSeaTile(ColumnNumType[RightIndex], "");
+            }
+            else
+            {
+                Column   = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "");
+            }
             Column.transform.position += new Vector3(cashedLastTilePosX - 0.1f, -5.2f, 0);
             LeftIndex++;
             RightIndex++;
@@ -103,13 +114,13 @@ public class VisibleColumnsCtrl : MonoBehaviour
             RightIndex--;
             //make new Right column 
             GameObject Column;
-            if (LeftIndex <= SeaTileMax)
+            if (LeftIndex <= SeaTileMax )
             {
-                Column = tileGen.BuildSeaTile(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+                Column = tileGen.BuildSeaTile(ColumnNumType[LeftIndex], "");
             }
             else
             {
-                Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "Rep /n L".ToString());
+                Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "");
             }
             Column.transform.position += new Vector3(cashedFirstTilePosX + 0.1f, -5.2f, 0);
 
@@ -119,6 +130,16 @@ public class VisibleColumnsCtrl : MonoBehaviour
         }
     }
 
+    public bool RIGHT_EdgeReached() {
+        if (RightIndex > TotalTileSize + SeaTileMax) return true;
+        return false;
+    }
+
+    public bool LEFT_EdgeReached()
+    {
+        if (LeftIndex <= 1) return true;
+        return false;
+    }
     void Update()
     {
 

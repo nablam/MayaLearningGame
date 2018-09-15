@@ -62,7 +62,7 @@ public class TileGenerator : MonoBehaviour {
         SnowTiles.Add(TileSnow_Corner_R);
 
 
-        CurrSeasonTile = GrassTiles;
+        CurrSeasonTile = FallTiles;
     }
 
 
@@ -96,7 +96,7 @@ public class TileGenerator : MonoBehaviour {
             GameObject Tile = Instantiate(TileTest);
             Tile.transform.position += new Vector3(0, h * TileSize, 0);
             Tile.transform.parent = Column.transform;
-            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName + "_" + h.ToString();
+            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = "";
         }
         Column.name = argName;
         return Column;
@@ -226,6 +226,131 @@ public class TileGenerator : MonoBehaviour {
 
 
 
+    //public GameObject ConstructColumnFORDESCENDINGtosee(int argx)
+    //{
+    //    GameObject Column = new GameObject();
+    //    GameObject Dirt = null;
+    //    GameObject Flat = null;
+    //    GameObject CornerUPhill = null;
+    //    GameObject CornerDownhill = null;
+
+    //    GameObject Hillup = null;
+    //    GameObject HIllDown = null;
+    //    switch (argx)
+    //    {
+
+    //        case 0: //if last state was 0 --> water state7
+    //            Flat = Instantiate(TileWater_Sea);
+    //            Flat.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            Flat.transform.parent = Column.transform;
+    //            Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+    //            break;
+    //        case 1:
+    //            Dirt = Instantiate(TileDirt_Dirt);
+    //            Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            Dirt.transform.parent = Column.transform;
+    //            Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            Flat = Instantiate(CurrSeasonTile[0]);
+    //            Flat.transform.position += new Vector3(0, 1 * TileSize, 0);
+    //            Flat.transform.parent = Column.transform;
+    //            Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+               
+
+    //            break;
+    //        case 2:
+
+    //            break;
+    //        case 3:
+
+    //            Dirt = Instantiate(TileDirt_Dirt);
+    //            Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            Dirt.transform.parent = Column.transform;
+    //            Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            CornerUPhill = Instantiate(CurrSeasonTile[3]);
+    //            CornerUPhill.transform.position += new Vector3(0, 1 * TileSize, 0);
+    //            CornerUPhill.transform.parent = Column.transform;
+    //            CornerUPhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            Hillup = Instantiate(CurrSeasonTile[1]);
+    //            Hillup.transform.position += new Vector3(0, 2 * TileSize, 0);
+    //            Hillup.transform.parent = Column.transform;
+    //            Hillup.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            break;
+    //        case 4:
+    //            Dirt = Instantiate(TileDirt_Dirt);
+    //            Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            Dirt.transform.parent = Column.transform;
+    //            Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            Dirt = Instantiate(TileDirt_Dirt);
+    //            Dirt.transform.position += new Vector3(0, 1 * TileSize, 0);
+    //            Dirt.transform.parent = Column.transform;
+    //            Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            Flat = Instantiate(CurrSeasonTile[0]);
+    //            Flat.transform.position += new Vector3(0, 2 * TileSize, 0);
+    //            Flat.transform.parent = Column.transform;
+    //            Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+    //            break;
+    //        case 5:
+    //            Dirt = Instantiate(TileDirt_Dirt);
+    //            Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            Dirt.transform.parent = Column.transform;
+    //            Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            CornerDownhill = Instantiate(CurrSeasonTile[4]);
+    //            CornerDownhill.transform.position += new Vector3(0, 1 * TileSize, 0);
+    //            CornerDownhill.transform.parent = Column.transform;
+    //            CornerDownhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            HIllDown = Instantiate(CurrSeasonTile[2]);
+    //            HIllDown.transform.position += new Vector3(0, 2 * TileSize, 0);
+    //            HIllDown.transform.parent = Column.transform;
+    //            HIllDown.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+    //            break;
+    //        case 6:
+
+
+
+    //            CornerDownhill = Instantiate(CurrSeasonTile[4]);
+    //            CornerDownhill.transform.position += new Vector3(0, 0 * TileSize, 0);
+    //            CornerDownhill.transform.parent = Column.transform;
+    //            CornerDownhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            HIllDown = Instantiate(CurrSeasonTile[2]);
+    //            HIllDown.transform.position += new Vector3(0, 1 * TileSize, 0);
+    //            HIllDown.transform.parent = Column.transform;
+    //            HIllDown.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+    //            break;
+    //    }
+
+
+
+
+    //    Column.name = "state_" + argx;
+
+    //    return Column;
+
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -247,9 +372,9 @@ public class TileGenerator : MonoBehaviour {
             GameObject Tile = Instantiate(TileWater_Sea);
             Tile.transform.position += new Vector3(0, h * TileSize, 0);
             Tile.transform.parent = Column.transform;
-            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName + "_" + h.ToString();
+            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = "";
         }
-        Column.name = argName;
+        Column.name = "Seablock";
         return Column;
     }
 

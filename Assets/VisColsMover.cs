@@ -4,10 +4,32 @@ using UnityEngine;
 
 public class VisColsMover : MonoBehaviour {
     VisibleColumnsCtrl _vcc;
+    VisibleBackgroundCtrl _vbc;
     float speed = 0.08f;
     void Awake () {
         _vcc = GetComponent<VisibleColumnsCtrl>();
+        _vbc = GetComponent<VisibleBackgroundCtrl>();
     }
+
+
+    void DoScroll_Right_toLoeft(List<GameObject> argList, float speed)
+    {
+        foreach (GameObject go in argList)
+        {
+            if (go == null) continue;
+            go.transform.Translate(Vector2.left * speed);
+        }
+    }
+    void DoScroll_Left_toRight(List<GameObject> argList, float speed)
+    {
+        foreach (GameObject go in argList)
+        {
+            if (go == null) continue;
+            go.transform.Translate(Vector2.right * speed);
+        }
+    }
+
+
 
     void DoScroll_Right_toLoeft()
     {
@@ -34,10 +56,33 @@ public class VisColsMover : MonoBehaviour {
             go.transform.Translate(Vector2.zero );
         }
     }
+
+    void ALL_LEFTWARD() {
+
+        if (_vcc.LEFT_EdgeReached()) return;
+        //   _vbc
+        DoScroll_Left_toRight();
+
+        DoScroll_Left_toRight(_vbc.Get_BS_Skyhills(), speed / 4f);
+        DoScroll_Left_toRight(_vbc.Get_BS_Hill1(), speed / 3f);
+        DoScroll_Left_toRight(_vbc.Get_BS_Hill2(), speed / 2f);
+    }
+
+    void ALL_RIGHTYTHEN() {
+        if (_vcc.RIGHT_EdgeReached()) return;
+        DoScroll_Right_toLoeft();
+        DoScroll_Right_toLoeft(_vbc.Get_BS_Skyhills(), speed / 4f);
+        DoScroll_Right_toLoeft(_vbc.Get_BS_Hill1(), speed / 3f);
+        DoScroll_Right_toLoeft(_vbc.Get_BS_Hill2(), speed / 2f);
+
+
+    }
+
+
     void Update () {
-        if (Input.GetKey(KeyCode.LeftArrow)) { DoScroll_Right_toLoeft(); }
+        if (Input.GetKey(KeyCode.LeftArrow)) { ALL_LEFTWARD(); }
    else
-           if (Input.GetKey(KeyCode.RightArrow)) { DoScroll_Left_toRight(); }
+           if (Input.GetKey(KeyCode.RightArrow)) { ALL_RIGHTYTHEN(); }
         else
             DoNothing();
     }
