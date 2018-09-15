@@ -23,7 +23,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
-      
+
         foreach (int x in MapLogicalStates)
         {
             ColumnNumType.Add(x);
@@ -45,7 +45,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
         for (int c = 0; c < totalVisibleTiles; c++)
         {
             GameObject Column;
-            if (c< SeaTileMax)
+            if (c < SeaTileMax)
                 Column = tileGen.BuildSeaTile(ColumnNumType[c], "base /n" + c.ToString());
             else
                 Column = tileGen.BuildTestColumn(ColumnNumType[c], "base /n" + c.ToString());
@@ -79,7 +79,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
             Destroy(LeftMostTileRef);
             //make new Right column 
             GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
-            Column.transform.position += new Vector3(cashedLastTilePosX-0.1f, -5.2f, 0);
+            Column.transform.position += new Vector3(cashedLastTilePosX - 0.1f, -5.2f, 0);
             LeftIndex++;
             RightIndex++;
             ActiveTiles[ActiveTiles.Length - 1] = Column;
@@ -127,58 +127,53 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     }
 
-
     int[] MapLogicalStates;
-    void GenerateMap() {
+    void GenerateMap()
+    {
         MapLogicalStates = new int[100];
-        MapLogicalStates[0] = 1;
-        MapLogicalStates[1] = 1;
-        MapLogicalStates[2] = 1;
-        MapLogicalStates[3] = 1;
-        MapLogicalStates[4] = 1;
-        for (int x = 5; x < 100; x++) {
-            MapLogicalStates[x] = DecideFromHere(MapLogicalStates[x - 1]);
+        MapLogicalStates[0] = 1;// MyEnums.HillType.Flat;
+        MapLogicalStates[1] = 1;// MyEnums.HillType.Flat;
+        MapLogicalStates[2] = 1;// MyEnums.HillType.Flat;
+        MapLogicalStates[3] = 1;// MyEnums.HillType.Flat;
+        MapLogicalStates[4] = 2;// MyEnums.HillType.Flat;
+
+
+        for (int x = 5; x < 100; x++)
+        {
+            MapLogicalStates[x] = StateChecker(MapLogicalStates[x - 1]);
+
+
+
         }
 
     }
 
-    int DecideFromHere(int arglast) {
-        int output = 0;
-        int rand = Random.Range(0, 100);
-        if (arglast == 1) {
-
-            if (rand > 50)
-            {
-                output = 2;
-            }
-            else
-                output = 1;
+    int StateChecker(int arglast) {
+        if (arglast == 0) {
+            return 1;
         }
-        else if (arglast == 2)
+        if (arglast == 1)
         {
-            if (rand < 33)
-            {
-                output = 1;
-            }
-            else
-                 if (rand >=33 && rand< 66)
-            {
-                output = 2;
-            }
-            else
-
-            output = 3;
+            return 2;
         }
-        else
+        if (arglast == 2)
+        {
+            return 3;
+        }
+
         if (arglast == 3)
         {
-            if (rand > 50)
-            {
-                output = 2;
-            }
-            else
-                output = 3;
+            return 1;
         }
-        return output;
+        return 1;
     }
+
 }
+
+         
+
+    
+ 
+ 
+
+ 

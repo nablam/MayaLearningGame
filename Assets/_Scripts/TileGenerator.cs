@@ -5,7 +5,7 @@ using UnityEngine;
 public class TileGenerator : MonoBehaviour {
 
     public GameObject TileTest;
-    public GameObject TileGrass_Dirt;
+    public GameObject TileDirt_Dirt;
     public GameObject TileWater_Sea;
 
     public GameObject TileGrass_Flat;
@@ -14,11 +14,15 @@ public class TileGenerator : MonoBehaviour {
     public GameObject TileGrass_Corner_L;
     public GameObject TileGrass_Corner_R;
 
+    List<GameObject> GrassTiles;
+
     public GameObject TileSnow_Flat;
     public GameObject TileSnow_Hill_L;
     public GameObject TileSnow_Hill_R;
     public GameObject TileSnow_Corner_L;
     public GameObject TileSnow_Corner_R;
+
+    List<GameObject> FallTiles;
 
     public GameObject TileFall_Flat;
     public GameObject TileFall_Hill_L;
@@ -26,12 +30,39 @@ public class TileGenerator : MonoBehaviour {
     public GameObject TileFall_Corner_L;
     public GameObject TileFall_Corner_R;
 
- 
+    List<GameObject> SnowTiles;
+
+    List<GameObject> CurrSeasonTile;
+
+
     float TileSize;
     public float GetTileSize() { return this.TileSize; }
     private void Awake()
     {
         TileSize = TileTest.GetComponent<SpriteRenderer>().size.x;
+        GrassTiles = new List<GameObject>();
+        GrassTiles.Add(TileGrass_Flat);
+        GrassTiles.Add(TileGrass_Hill_L);
+        GrassTiles.Add(TileGrass_Hill_R);
+        GrassTiles.Add(TileGrass_Corner_L);
+        GrassTiles.Add(TileGrass_Corner_R);
+
+        FallTiles = new List<GameObject>();
+        FallTiles.Add(TileFall_Flat);
+        FallTiles.Add(TileFall_Hill_L);
+        FallTiles.Add(TileFall_Hill_R);
+        FallTiles.Add(TileFall_Corner_L);
+        FallTiles.Add(TileFall_Corner_R);
+
+        SnowTiles = new List<GameObject>();
+        SnowTiles.Add(TileSnow_Flat);
+        SnowTiles.Add(TileSnow_Hill_L);
+        SnowTiles.Add(TileSnow_Hill_R);
+        SnowTiles.Add(TileSnow_Corner_L);
+        SnowTiles.Add(TileSnow_Corner_R);
+
+
+        CurrSeasonTile = GrassTiles;
     }
 
 
@@ -41,16 +72,170 @@ public class TileGenerator : MonoBehaviour {
     }
 
     public GameObject BuildTestColumn(int argHeight, string argName) {
+        //GameObject Column = new GameObject();
+        //for (int h = 0; h < argHeight; h++) {
+        //    GameObject Tile = Instantiate(TileTest);
+        //    Tile.transform.position += new Vector3(0, h*TileSize, 0);
+        //    Tile.transform.parent = Column.transform;
+        //    Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName+"_"+ h.ToString();
+        //}
+        //Column.name = argName;
+
+        return ConstructColumn(argHeight);
+        
+    }
+
+    public GameObject BuildColumn(int argStaeType, string argName)
+    {
         GameObject Column = new GameObject();
-        for (int h = 0; h < argHeight; h++) {
+
+
+
+        for (int h = 0; h < argStaeType; h++)
+        {
             GameObject Tile = Instantiate(TileTest);
-            Tile.transform.position += new Vector3(0, h*TileSize, 0);
+            Tile.transform.position += new Vector3(0, h * TileSize, 0);
             Tile.transform.parent = Column.transform;
-            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName+"_"+ h.ToString();
+            Tile.transform.GetChild(0).GetComponent<TextMesh>().text = argName + "_" + h.ToString();
         }
         Column.name = argName;
         return Column;
     }
+
+
+    public GameObject ConstructColumn(int argx) {
+        GameObject Column = new GameObject();
+        GameObject Dirt=null;
+        GameObject Flat = null;
+        GameObject CornerUPhill=null;
+        GameObject CornerDownhill = null;
+
+        GameObject Hillup = null;
+        GameObject HIllDown = null;
+        switch (argx) {
+
+            case 0:
+                Flat = Instantiate(CurrSeasonTile[0]);
+                Flat.transform.position += new Vector3(0, 0 * TileSize, 0);
+                Flat.transform.parent = Column.transform;
+                Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+                break;
+          case 1:
+                CornerUPhill = Instantiate(CurrSeasonTile[3]);
+                CornerUPhill.transform.position += new Vector3(0, 0 * TileSize, 0);
+                CornerUPhill.transform.parent = Column.transform;
+                CornerUPhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                Hillup = Instantiate(CurrSeasonTile[1]);
+                Hillup.transform.position += new Vector3(0, 1 * TileSize, 0);
+                Hillup.transform.parent = Column.transform;
+                Hillup.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                break;
+            case 2:
+                Dirt = Instantiate(TileDirt_Dirt);
+                Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+                Dirt.transform.parent = Column.transform;
+                Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                Flat = Instantiate(CurrSeasonTile[0]);
+                Flat.transform.position += new Vector3(0, 1 * TileSize, 0);
+                Flat.transform.parent = Column.transform;
+                Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+                break;
+            case 3:
+
+                Dirt = Instantiate(TileDirt_Dirt);
+                Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+                Dirt.transform.parent = Column.transform;
+                Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                CornerUPhill = Instantiate(CurrSeasonTile[3]);
+                CornerUPhill.transform.position += new Vector3(0, 1 * TileSize, 0);
+                CornerUPhill.transform.parent = Column.transform;
+                CornerUPhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                Hillup = Instantiate(CurrSeasonTile[1]);
+                Hillup.transform.position += new Vector3(0, 2 * TileSize, 0);
+                Hillup.transform.parent = Column.transform;
+                Hillup.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                break;
+            case 4:
+                Dirt = Instantiate(TileDirt_Dirt);
+                Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+                Dirt.transform.parent = Column.transform;
+                Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                Dirt = Instantiate(TileDirt_Dirt);
+                Dirt.transform.position += new Vector3(0, 1 * TileSize, 0);
+                Dirt.transform.parent = Column.transform;
+                Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                Flat = Instantiate(CurrSeasonTile[0]);
+                Flat.transform.position += new Vector3(0, 2 * TileSize, 0);
+                Flat.transform.parent = Column.transform;
+                Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+                break;
+            case 5:
+                Dirt = Instantiate(TileDirt_Dirt);
+                Dirt.transform.position += new Vector3(0, 0 * TileSize, 0);
+                Dirt.transform.parent = Column.transform;
+                Dirt.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                CornerDownhill = Instantiate(CurrSeasonTile[4]);
+                CornerDownhill.transform.position += new Vector3(0, 1 * TileSize, 0);
+                CornerDownhill.transform.parent = Column.transform;
+                CornerDownhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                HIllDown = Instantiate(CurrSeasonTile[2]);
+                HIllDown.transform.position += new Vector3(0, 2 * TileSize, 0);
+                HIllDown.transform.parent = Column.transform;
+                HIllDown.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+                break;
+            case 6:
+
+
+
+                CornerDownhill = Instantiate(CurrSeasonTile[4]);
+                CornerDownhill.transform.position += new Vector3(0, 0 * TileSize, 0);
+                CornerDownhill.transform.parent = Column.transform;
+                CornerDownhill.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                HIllDown = Instantiate(CurrSeasonTile[2]);
+                HIllDown.transform.position += new Vector3(0, 1 * TileSize, 0);
+                HIllDown.transform.parent = Column.transform;
+                HIllDown.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                break;
+        }
+
+
+
+
+        Column.name = "state_"+argx;
+
+        return Column;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public GameObject BuildSeaTile(int argHeight, string argName)
@@ -67,19 +252,6 @@ public class TileGenerator : MonoBehaviour {
         Column.name = argName;
         return Column;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

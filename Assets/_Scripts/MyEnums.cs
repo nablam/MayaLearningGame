@@ -34,7 +34,11 @@ public class MyEnums : MonoBehaviour {
 
     public enum HillType {
         Ascend,
+        JoinAscend,
         Flat,
-        Descend
+        Descend,
+        JoinDescend,
+        Dirt,
+        Sea
     }
 }
