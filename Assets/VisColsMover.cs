@@ -5,6 +5,7 @@ using UnityEngine;
 public class VisColsMover : MonoBehaviour {
     VisibleColumnsCtrl _vcc;
     VisibleBackgroundCtrl _vbc;
+   public  dinosimplemove _dsm;
     float speed = 0.08f;
     void Awake () {
         _vcc = GetComponent<VisibleColumnsCtrl>();
@@ -79,11 +80,15 @@ public class VisColsMover : MonoBehaviour {
     }
 
 
-    void Update () {
-        if (Input.GetKey(KeyCode.LeftArrow)) { ALL_LEFTWARD(); }
-   else
-           if (Input.GetKey(KeyCode.RightArrow)) { ALL_RIGHTYTHEN(); }
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow)) { ALL_LEFTWARD(); _dsm.Action_Direction(-1); _dsm.Action_MoveToFood(); }
         else
+           if (Input.GetKey(KeyCode.RightArrow)) { ALL_RIGHTYTHEN(); _dsm.Action_Direction(1); _dsm.Action_MoveToFood(); }
+        else
+        {
+            _dsm.Action_WaitForFood();
             DoNothing();
+        }
     }
 }

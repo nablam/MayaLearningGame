@@ -7,8 +7,8 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     public TileGenerator tileGen;
     int totalVisibleTiles = 11;
-    int SeaTileMax = 5;
-    int TotalTileSize = 20;
+    int SeaTileMax = 4;
+    int TotalTileSize = 60;
     GameObject[] ActiveTiles;
     public GameObject[] GetVisibleColumns() { return this.ActiveTiles; }
     List<int> ColumnNumType;
@@ -22,7 +22,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
         ColumnNumType.Add(1);
-        ColumnNumType.Add(1);
+       // ColumnNumType.Add(1);
 
         foreach (int x in MapLogicalStates)
         {
@@ -81,7 +81,6 @@ public class VisibleColumnsCtrl : MonoBehaviour
             //GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
             GameObject Column;
 
-            Debug.Log(RightIndex);
             if (RightIndex >= (TotalTileSize )) //no worries , seablocks were added to the list 
             {
                 Column = tileGen.BuildSeaTile(ColumnNumType[RightIndex], "");
@@ -131,13 +130,13 @@ public class VisibleColumnsCtrl : MonoBehaviour
     }
 
     public bool RIGHT_EdgeReached() {
-        if (RightIndex > TotalTileSize + SeaTileMax) return true;
+        if (RightIndex > TotalTileSize + SeaTileMax-1) return true;
         return false;
     }
 
     public bool LEFT_EdgeReached()
     {
-        if (LeftIndex <= 1) return true;
+        if (LeftIndex <= 0) return true;
         return false;
     }
     void Update()
@@ -157,7 +156,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
         MapLogicalStates[2] = 0;// MyEnums.HillType.Flat;
         MapLogicalStates[3] = 0;// MyEnums.HillType.Flat;
         MapLogicalStates[4] = 0;// MyEnums.HillType.Flat;
-
+        MapLogicalStates[5] = 0;
 
         for (int x = 1; x < TotalTileSize; x++)
         {

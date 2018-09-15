@@ -33,13 +33,24 @@ public class DinoCTRL : MonoBehaviour {
         _animator.speed = 1;
         _animator.SetTrigger("TrigEat");
     }
-    //void Update () {
+
+
+    //void Update()
+    //{
     //    //if (Input.GetKeyDown(KeyCode.Alpha0)) { _curDinoStateState = MyEnums.DinoState.Idle; }
     //    //else
     //    //if (Input.GetKeyDown(KeyCode.Alpha1)) { _curDinoStateState = MyEnums.DinoState.Walking; }
     //    //else
     //    //if (Input.GetKeyDown(KeyCode.Space)) { _animator.SetTrigger("TrigEat"); }
-    //    UpdateANimatorState();
+
+
+    //    if (Input.GetKey(KeyCode.LeftArrow)) { this.transform.Translate(Vector2.left * 1); }
+    //    else
+    //       if (Input.GetKey(KeyCode.RightArrow)) { this.transform.Translate(Vector2.left * 1);  }
+    //    else
+    //        this.transform.Translate(Vector2.left * 0);
+
+    //  //  UpdateANimatorState();
 
     //}
 }
