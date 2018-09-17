@@ -8,7 +8,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     public TileGenerator tileGen;
     int totalVisibleTiles = 11;
     int SeaTileMax = 4;
-    int TotalTileSize = 60;
+    int TotalTileSize = 30;
     GameObject[] ActiveTiles;
     public GameObject[] GetVisibleColumns() { return this.ActiveTiles; }
     List<int> ColumnNumType;
@@ -42,13 +42,20 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     void BuildBAseVisible()
     {
+        MyEnums.Season curseason = MyEnums.Season.Winter;
         for (int c = 0; c < totalVisibleTiles; c++)
         {
+            //if (c < totalVisibleTiles / 3) { curseason = MyEnums.Season.Spring; }
+            //else
+            //    if (c >= totalVisibleTiles / 3  && c < (totalVisibleTiles*2)/3) { curseason = MyEnums.Season.Winter; }
+            //    else
+            //     if (c > (totalVisibleTiles * 2) / 3) { curseason = MyEnums.Season.Fall; }
+                  
             GameObject Column;
             if (c <= SeaTileMax )
                 Column = tileGen.BuildSeaTile(ColumnNumType[c], "");
             else
-                Column = tileGen.BuildTestColumn(ColumnNumType[c], "");
+                Column = tileGen.BuildTestColumn(ColumnNumType[c], "", curseason);
             Column.transform.position += new Vector3((RightIndex * Xoffset) - 12.8f, -5.2f, 0);
             ActiveTiles[c] = Column;
             RightIndex++;
@@ -87,7 +94,13 @@ public class VisibleColumnsCtrl : MonoBehaviour
             }
             else
             {
-                Column   = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "");
+                MyEnums.Season curseason = MyEnums.Season.Spring;
+                //if (RightIndex < totalVisibleTiles / 3) { curseason = MyEnums.Season.Spring; }
+                //else
+                //    if (RightIndex >= totalVisibleTiles / 3 && RightIndex < (totalVisibleTiles * 2) / 3) { curseason = MyEnums.Season.Winter; }
+                //else
+                //     if (RightIndex > (totalVisibleTiles * 2) / 3) { curseason = MyEnums.Season.Fall; }
+                Column   = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "",curseason);
             }
             Column.transform.position += new Vector3(cashedLastTilePosX - 0.1f, -5.2f, 0);
             LeftIndex++;
@@ -119,7 +132,10 @@ public class VisibleColumnsCtrl : MonoBehaviour
             }
             else
             {
-                Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "");
+
+                MyEnums.Season curseason = MyEnums.Season.Spring;
+            
+                Column = tileGen.BuildTestColumn(ColumnNumType[LeftIndex], "",curseason);
             }
             Column.transform.position += new Vector3(cashedFirstTilePosX + 0.1f, -5.2f, 0);
 

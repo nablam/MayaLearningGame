@@ -9,11 +9,14 @@ public class dinosimplemove : MonoBehaviour {
     int FoodDirection = 0;
       Animator _animator;
     MyEnums.DinoState _curState;
+    Rigidbody2D rb2d;
     int CurSceneFoodIndex = 0;
      void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
- 
+        rb2d = GetComponent<Rigidbody2D>();
+
+
     }
     void Start()
     {
@@ -42,7 +45,7 @@ public class dinosimplemove : MonoBehaviour {
     {
         _curState = MyEnums.DinoState.Walking;
         _moveToFoodUpdate = true;
-        _animator.speed = 1;
+        _animator.speed = 0.75f;
         _animator.SetInteger("DinoState", (int)_curState);
     }
     //EatFood
@@ -53,10 +56,20 @@ public class dinosimplemove : MonoBehaviour {
         _animator.speed = 1;
         _animator.SetTrigger("TrigEat");
     }
-   
 
-  
-    
+    public void ActionJump()
+    {
+        if (hasJumped  ) return;
+        Debug.Log("jumping");
+        hasJumped = true;
+        _animator.SetBool("hasjumped",hasJumped);
+        _moveToFoodUpdate = false;
+        _animator.speed = 3;
+        _animator.SetTrigger("TrigJump");
+        rb2d.AddForce(Vector2.up * 350f);
+    }
+
+
 
     void Update()
     {
@@ -74,6 +87,65 @@ public class dinosimplemove : MonoBehaviour {
         //    this.transform.Translate(Vector2.left * 0);
 
         //  UpdateANimatorState();
+
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (  !isgrounded) return;
+
+            ActionJump();
+        }
+    }
+
+   public  bool isgrounded = false;
+    public bool hasJumped = false;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isgrounded = true;
+        hasJumped = false;
+        _animator.SetBool("hasjumped", hasJumped);
+        _animator.speed = 1;
+
+
+        // Debug.Log("hit____ " + collision.gameObject.name);
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        isgrounded = true;
+        hasJumped = false;
+        _animator.SetBool("hasjumped", hasJumped);
+        _animator.speed = 1;
+
+
+        //  Debug.Log("hitstay " + collision.gameObject.name);
+
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isgrounded = false;
+
+        if (hasJumped)
+        {
+            _animator.SetBool("hasjumped", hasJumped);
+        }
+        // Debug.Log("hit_exit " + collision.gameObject.name);
+
+    }
+
+
+    private void OnColisionEnter2D(Collider2D collision)
+    {
+     
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+    
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+  
 
     }
 }

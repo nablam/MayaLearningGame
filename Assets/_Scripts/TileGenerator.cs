@@ -71,7 +71,7 @@ public class TileGenerator : MonoBehaviour {
      //   BuildTestColumn(3,"column12");
     }
 
-    public GameObject BuildTestColumn(int argHeight, string argName) {
+    public GameObject BuildTestColumn(int argState, string argName, MyEnums.Season argEason) {
         //GameObject Column = new GameObject();
         //for (int h = 0; h < argHeight; h++) {
         //    GameObject Tile = Instantiate(TileTest);
@@ -81,7 +81,7 @@ public class TileGenerator : MonoBehaviour {
         //}
         //Column.name = argName;
 
-        return ConstructColumn(argHeight);
+        return ConstructColumn(argState,  argEason);
         
     }
 
@@ -103,7 +103,12 @@ public class TileGenerator : MonoBehaviour {
     }
 
 
-    public GameObject ConstructColumn(int argx) {
+    public GameObject ConstructColumn(int argx, MyEnums.Season argEason) {
+
+        if (argEason == MyEnums.Season.Spring) { CurrSeasonTile = GrassTiles; }
+        else if(argEason == MyEnums.Season.Winter) { CurrSeasonTile = SnowTiles; }
+        else if (argEason == MyEnums.Season.Fall) { CurrSeasonTile = FallTiles; }
+        
         GameObject Column = new GameObject();
         GameObject Dirt=null;
         GameObject Flat = null;

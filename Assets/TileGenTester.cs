@@ -11,8 +11,8 @@ public class TileGenTester : MonoBehaviour {
 
         for (int x = 0; x < 7; x++) {
 
-          GameObject go=  tg.ConstructColumn(x);
-            go.transform.position = new Vector3(x, 0, 0);
+          //GameObject go=  tg.ConstructColumn(x);
+          //  go.transform.position = new Vector3(x, 0, 0);
            
         }
 

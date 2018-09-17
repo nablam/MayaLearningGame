@@ -6,7 +6,7 @@ public class VisColsMover : MonoBehaviour {
     VisibleColumnsCtrl _vcc;
     VisibleBackgroundCtrl _vbc;
    public  dinosimplemove _dsm;
-    float speed = 0.08f;
+    float speed = 0.1f;//0.06f;
     void Awake () {
         _vcc = GetComponent<VisibleColumnsCtrl>();
         _vbc = GetComponent<VisibleBackgroundCtrl>();

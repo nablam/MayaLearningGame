@@ -32,7 +32,8 @@ public class MyEnums : MonoBehaviour {
         RightScrolling
     }
 
-    public enum HillType {
+    public enum HillType
+    {
         Ascend,
         JoinAscend,
         Flat,
@@ -40,5 +41,12 @@ public class MyEnums : MonoBehaviour {
         JoinDescend,
         Dirt,
         Sea
+    }
+    public enum Season
+    {
+        Spring,
+        Winter,
+        Fall,
+        Summer
     }
 }
