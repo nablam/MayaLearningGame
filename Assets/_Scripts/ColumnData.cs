@@ -60,6 +60,4 @@ public class ColumnData  {
         _mySeason = argseason;
         //_mypickup = argPickyp;
     }
-
-   
 }

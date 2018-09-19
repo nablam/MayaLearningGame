@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisColsMover : MonoBehaviour {
+public class VisColsMover : MonoBehaviour
+{
     VisibleColumnsCtrl _vcc;
     VisibleBackgroundCtrl _vbc;
-   public  dinosimplemove _dsm;
+    public dinosimplemove _dsm;
     float speed = 0.1f;//0.06f;
-    void Awake () {
+    void Awake()
+    {
         _vcc = GetComponent<VisibleColumnsCtrl>();
         _vbc = GetComponent<VisibleBackgroundCtrl>();
     }
 
 
-    void DoScroll_Right_toLoeft(List<GameObject> argList, float speed)
+    void DoScroll_BAckGround_Right_toLoeft(List<GameObject> argList, float speed)
     {
         foreach (GameObject go in argList)
         {
@@ -21,7 +23,7 @@ public class VisColsMover : MonoBehaviour {
             go.transform.Translate(Vector2.left * speed);
         }
     }
-    void DoScroll_Left_toRight(List<GameObject> argList, float speed)
+    void DoScroll_BAckGrounds_Left_toRight(List<GameObject> argList, float speed)
     {
         foreach (GameObject go in argList)
         {
@@ -29,9 +31,6 @@ public class VisColsMover : MonoBehaviour {
             go.transform.Translate(Vector2.right * speed);
         }
     }
-
-
-
     void DoScroll_Right_toLoeft()
     {
         foreach (GameObject go in _vcc.GetVisibleColumns())
@@ -54,29 +53,26 @@ public class VisColsMover : MonoBehaviour {
         foreach (GameObject go in _vcc.GetVisibleColumns())
         {
             if (go == null) continue;
-            go.transform.Translate(Vector2.zero );
+            go.transform.Translate(Vector2.zero);
         }
     }
 
-    void ALL_LEFTWARD() {
-
+    void ALL_LEFTWARD()
+    {
         if (_vcc.LEFT_EdgeReached()) return;
-        //   _vbc
         DoScroll_Left_toRight();
-
-        DoScroll_Left_toRight(_vbc.Get_BS_Skyhills(), speed / 4f);
-        DoScroll_Left_toRight(_vbc.Get_BS_Hill1(), speed / 3f);
-        DoScroll_Left_toRight(_vbc.Get_BS_Hill2(), speed / 2f);
+        DoScroll_BAckGrounds_Left_toRight(_vbc.Get_BS_Skyhills(), speed / 4f);
+        DoScroll_BAckGrounds_Left_toRight(_vbc.Get_BS_Hill1(), speed / 3f);
+        DoScroll_BAckGrounds_Left_toRight(_vbc.Get_BS_Hill2(), speed / 2f);
     }
 
-    void ALL_RIGHTYTHEN() {
+    void ALL_RIGHTYTHEN()
+    {
         if (_vcc.RIGHT_EdgeReached()) return;
         DoScroll_Right_toLoeft();
-        DoScroll_Right_toLoeft(_vbc.Get_BS_Skyhills(), speed / 4f);
-        DoScroll_Right_toLoeft(_vbc.Get_BS_Hill1(), speed / 3f);
-        DoScroll_Right_toLoeft(_vbc.Get_BS_Hill2(), speed / 2f);
-
-
+        DoScroll_BAckGround_Right_toLoeft(_vbc.Get_BS_Skyhills(), speed / 4f);
+        DoScroll_BAckGround_Right_toLoeft(_vbc.Get_BS_Hill1(), speed / 3f);
+        DoScroll_BAckGround_Right_toLoeft(_vbc.Get_BS_Hill2(), speed / 2f);
     }
 
 

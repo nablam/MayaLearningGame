@@ -467,48 +467,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1001 &137188973
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -5.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.009765625
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4998917974901002, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6fe74b774f3268647aeb53185ca6c4e3, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &276468841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,9 +1423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde852b509eae7549b8f2457130fe4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileGen: {fileID: 1727492579}
   cashedFirstTilePosX: 0
   cashedLastTilePosX: 0
+  tileGen: {fileID: 1727492579}
 --- !u!4 &1196661199
 Transform:
   m_ObjectHideFlags: 0
