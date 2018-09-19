@@ -7,7 +7,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     public float cashedFirstTilePosX;
     public float cashedLastTilePosX;
     public TileGenerator tileGen;
-
+    public int CoinsNeededMAx10=10;
     GameObject LeftMostTileRef;
     GameObject RightMostTileRef;
     int RightIndex;
@@ -16,6 +16,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     int SeaTileMax = 4;
     int StartFlatTiles = 3;
     int MapSize = 60;
+    int CoinsCount = 0; //is incremented at mapgeneration
     GameObject[] ActiveTiles;
     float Xoffset;
     ColumnData[] Columns;// array for logic 
@@ -24,6 +25,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     private void Awake()
     {
         GenerateMap();
+        Debug.Log("making " + CoinsCount + " coins");
         ActiveTiles = new GameObject[totalVisibleTiles];
     }
 
@@ -139,13 +141,27 @@ public class VisibleColumnsCtrl : MonoBehaviour
             else { columnState = StateChecker(Columns[x - 1].StateNumber1); }
             Columns[x].StateNumber1 = columnState;
             Columns[x].MySeason = MyEnums.Season.Spring;
+            if (x > Mathf.FloorToInt(MapSize / 3) && x <= Mathf.FloorToInt((MapSize * 2) / 3)) {
+                Columns[x].MySeason = MyEnums.Season.Fall;
+            } else if (x > Mathf.FloorToInt((MapSize * 2) / 3)) {
+                Columns[x].MySeason = MyEnums.Season.Winter;
+
+            }
             Columns[x].Mypickup = MyEnums.Pickup.None;
+
+            if (CoinsCount >= CoinsNeededMAx10) continue;
+
+
             //randome coin places after the base flat onle. 
             //can only be set to coin pickup if it is a flat like stat 0 2 4 
             if (x > SeaTileMax + StartFlatTiles)
             {
                 if (columnState == 0 || columnState == 2 || columnState == 4) {
-                    Columns[x].Mypickup = (Random.Range(0,2)==0)?  MyEnums.Pickup.CoinPickup: MyEnums.Pickup.None;
+                    bool makecoin = (Random.Range(0, 2) == 0) ;
+                    if (makecoin) {
+                        CoinsCount++;
+                        Columns[x].Mypickup = MyEnums.Pickup.CoinPickup;
+                    }
                 }
             }
            
