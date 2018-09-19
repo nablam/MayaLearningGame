@@ -8,7 +8,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     public TileGenerator tileGen;
     int totalVisibleTiles = 11;
     int SeaTileMax = 4;
-    int TotalTileSize = 30;
+    int MapSize = 30;
     GameObject[] ActiveTiles;
     public GameObject[] GetVisibleColumns() { return this.ActiveTiles; }
     List<int> ColumnNumType;
@@ -88,7 +88,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
             //GameObject Column = tileGen.BuildTestColumn(ColumnNumType[RightIndex], "Replenish R".ToString());
             GameObject Column;
 
-            if (RightIndex >= (TotalTileSize )) //no worries , seablocks were added to the list 
+            if (RightIndex >= (MapSize )) //no worries , seablocks were added to the list 
             {
                 Column = tileGen.BuildSeaTile(ColumnNumType[RightIndex], "");
             }
@@ -146,7 +146,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     }
 
     public bool RIGHT_EdgeReached() {
-        if (RightIndex > TotalTileSize + SeaTileMax-1) return true;
+        if (RightIndex > MapSize + SeaTileMax-1) return true;
         return false;
     }
 
@@ -164,24 +164,33 @@ public class VisibleColumnsCtrl : MonoBehaviour
     }
 
     int[] MapLogicalStates;
+    ColumnData[] Columns;
     void GenerateMap()
     {
-        MapLogicalStates = new int[TotalTileSize];
-        MapLogicalStates[0] = 0;// MyEnums.HillType.Flat;
-        MapLogicalStates[1] = 0;// MyEnums.HillType.Flat;
-        MapLogicalStates[2] = 0;// MyEnums.HillType.Flat;
-        MapLogicalStates[3] = 0;// MyEnums.HillType.Flat;
-        MapLogicalStates[4] = 0;// MyEnums.HillType.Flat;
-        MapLogicalStates[5] = 0;
-
-        for (int x = 1; x < TotalTileSize; x++)
+        MapLogicalStates = new int[MapSize];
+        Columns = new ColumnData[MapSize];
+        for (int col = 0; col < MapSize; col++) {
+            Columns[col] = new ColumnData(-1, MyEnums.Season.Summer);
+        }
+        for (int edge = 0; edge < SeaTileMax; edge++)
         {
-            MapLogicalStates[x] = StateChecker(MapLogicalStates[x - 1]);
+            MapLogicalStates[edge]  = 0;
+            Columns[edge].MySeason = MyEnums.Season.Spring;
+        }
+        
 
-
-
+     
+        for (int x = SeaTileMax ; x < MapSize; x++)
+        {
+            int columnState = StateChecker(MapLogicalStates[x - 1]);
+            MapLogicalStates[x] = Columns[x].StateNumber1 = columnState;
+            Columns[x].MySeason = MyEnums.Season.Spring;
         }
 
+
+        for (int a = 0; a < MapSize; a++) {
+            Debug.Log(Columns[a].StateNumber1);
+        }
     }
 
     int StateChecker(int arglast) {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System;
 using UnityEngine;
 
 public class dinosimplemove : MonoBehaviour {
@@ -7,7 +8,7 @@ public class dinosimplemove : MonoBehaviour {
     public GameObject FoodTargetObject;
     public bool _moveToFoodUpdate = false;
     int FoodDirection = 0;
-      Animator _animator;
+    Animator _animator;
     MyEnums.DinoState _curState;
     Rigidbody2D rb2d;
     int CurSceneFoodIndex = 0;
@@ -18,11 +19,24 @@ public class dinosimplemove : MonoBehaviour {
 
 
     }
+
     void Start()
     {
-        
+       // DayOfWeek MeetingDay;
+
         Action_WaitForFood();
-     
+
+        //DateTime dt = new DateTime(2018, 9, 18);
+        //int c = 0;
+        //for (int x = 0; x < 20; x++)
+        //{
+        //    DayOfWeek MeetingDay = (UnityEngine.Random.Range(0, 2) == 0) ? DayOfWeek.Thursday : DayOfWeek.Saturday;
+
+        //    c += (int)MeetingDay;
+        //    Debug.Log(MeetingDay);
+        //}
+        //Debug.Log(c);
+        
     }
 
 

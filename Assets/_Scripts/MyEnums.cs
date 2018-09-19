@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class MyEnums : MonoBehaviour {
+public class MyEnums : MonoBehaviour
+{
 
     public enum ColliderTypes
     {
@@ -12,12 +13,12 @@ public class MyEnums : MonoBehaviour {
         Type_Lion,
         Type_Pasha,
         Type_Minnie,
-		Type_Mickey,
-		Type_Mouminek,
-		Type_Foxy,
-		Type_LittleBrother,
-		Type_Froggy,
-		Type_Zoe
+        Type_Mickey,
+        Type_Mouminek,
+        Type_Foxy,
+        Type_LittleBrother,
+        Type_Froggy,
+        Type_Zoe
     }
 
     public enum DinoState
@@ -26,7 +27,8 @@ public class MyEnums : MonoBehaviour {
         Walking
     }
 
-    public enum ScrolingState {
+    public enum ScrolingState
+    {
         LeftScrolling, //terrain move Right ro left
         Stopped,
         RightScrolling
@@ -48,5 +50,12 @@ public class MyEnums : MonoBehaviour {
         Winter,
         Fall,
         Summer
+    }
+    public enum Pickup
+    {
+        None,
+        CoinPickup,
+        FruitPickup,
+        VeggiePickeup
     }
 }
