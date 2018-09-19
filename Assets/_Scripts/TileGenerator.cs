@@ -5,9 +5,11 @@ using UnityEngine;
 public class TileGenerator : MonoBehaviour
 {
 
-    public GameObject TileTest;
+    public GameObject TileTest; //Must keep as the tile size setter for now
     public GameObject TileDirt_Dirt;
     public GameObject TileWater_Sea;
+    public GameObject CoinObj;
+
     public GameObject TileGrass_Flat;
     public GameObject TileGrass_Hill_L;
     public GameObject TileGrass_Hill_R;
@@ -59,12 +61,15 @@ public class TileGenerator : MonoBehaviour
         CurrSeasonTile = FallTiles;
     }
 
-    public GameObject BuildColumnFromBluePrint(ColumnData argBluePrint)
+  
+
+    public GameObject BuildColumnFromBluePrint(ColumnData argBluePrint, int ColumnIndex_forCoinToCall)
     {
-        return ConstructColumn(argBluePrint.StateNumber1, argBluePrint.MySeason);
+        return ConstructColumn(argBluePrint.StateNumber1, argBluePrint.MySeason, argBluePrint.Mypickup, ColumnIndex_forCoinToCall);
     }
 
-    public GameObject ConstructColumn(int argx, MyEnums.Season argEason)
+
+    public GameObject ConstructColumn(int argx, MyEnums.Season argEason, MyEnums.Pickup argPickup, int idforcoin)
     {
         if (argEason == MyEnums.Season.Spring) { CurrSeasonTile = GrassTiles; }
         else if (argEason == MyEnums.Season.Winter) { CurrSeasonTile = SnowTiles; }
@@ -79,6 +84,7 @@ public class TileGenerator : MonoBehaviour
         GameObject Hillup = null;
         GameObject HIllDown = null;
         GameObject Seawater = null;
+        GameObject Cointemp = null;
         switch (argx)
         {
 
@@ -93,6 +99,15 @@ public class TileGenerator : MonoBehaviour
                 Flat.transform.position += new Vector3(0, 0 * TileSize, 0);
                 Flat.transform.parent = Column.transform;
                 Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                if (argPickup == MyEnums.Pickup.CoinPickup)
+                {
+                    Cointemp = Instantiate(CoinObj);
+                    Cointemp.transform.position += new Vector3(0, 1 * TileSize, 0);
+                    Cointemp.transform.parent = Column.transform;
+                    Cointemp.GetComponent<CoinLandScrol>().ID_ofvisibleColumn = idforcoin;
+                }
+
                 break;
             case 1:
                 CornerUPhill = Instantiate(CurrSeasonTile[3]);
@@ -116,6 +131,15 @@ public class TileGenerator : MonoBehaviour
                 Flat.transform.position += new Vector3(0, 1 * TileSize, 0);
                 Flat.transform.parent = Column.transform;
                 Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+                if (argPickup == MyEnums.Pickup.CoinPickup)
+                {
+                    Cointemp = Instantiate(CoinObj);
+                    Cointemp.transform.position += new Vector3(0, 2 * TileSize, 0);
+                    Cointemp.transform.parent = Column.transform;
+                    Cointemp.GetComponent<CoinLandScrol>().ID_ofvisibleColumn = idforcoin;
+
+                }
                 break;
             case 3:
 
@@ -150,6 +174,16 @@ public class TileGenerator : MonoBehaviour
                 Flat.transform.position += new Vector3(0, 2 * TileSize, 0);
                 Flat.transform.parent = Column.transform;
                 Flat.transform.GetChild(0).GetComponent<TextMesh>().text = "";
+
+
+                if (argPickup == MyEnums.Pickup.CoinPickup)
+                {
+                    Cointemp = Instantiate(CoinObj);
+                    Cointemp.transform.position += new Vector3(0, 3 * TileSize, 0);
+                    Cointemp.transform.parent = Column.transform;
+                    Cointemp.GetComponent<CoinLandScrol>().ID_ofvisibleColumn = idforcoin;
+
+                }
                 break;
             case 5:
                 Dirt = Instantiate(TileDirt_Dirt);
@@ -186,4 +220,8 @@ public class TileGenerator : MonoBehaviour
         Column.name = "state_" + argx;
         return Column;
     }
+
+
+
+
 }

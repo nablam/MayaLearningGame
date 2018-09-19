@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class dinosimplemove : MonoBehaviour {
 
-    public GameObject FoodTargetObject;
+    public VisibleColumnsCtrl VisColCTRL;
     public bool _moveToFoodUpdate = false;
     int FoodDirection = 0;
     Animator _animator;
@@ -121,7 +121,7 @@ public class dinosimplemove : MonoBehaviour {
         _animator.speed = 1;
 
 
-        // Debug.Log("hit____ " + collision.gameObject.name);
+        //Debug.Log("hit____ " + collision.gameObject.name);
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -147,9 +147,17 @@ public class dinosimplemove : MonoBehaviour {
     }
 
 
-    private void OnColisionEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-     
+        //Debug.Log("hit____ " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Pickup") ) {
+           int? id= collision.gameObject.GetComponent<CoinLandScrol>().ID_ofvisibleColumn;
+            if (id!=null) {
+                Debug.Log("hit__id__ " + id);
+                VisColCTRL.SetColumnDataCoinPickup((int)id);
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

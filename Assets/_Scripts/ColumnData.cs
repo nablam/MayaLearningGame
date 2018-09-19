@@ -58,6 +58,6 @@ public class ColumnData  {
     {
         _stateNumber = argstate;
         _mySeason = argseason;
-        //_mypickup = argPickyp;
+        _mypickup = MyEnums.Pickup.None;
     }
 }

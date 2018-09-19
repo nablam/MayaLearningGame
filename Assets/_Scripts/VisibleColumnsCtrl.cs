@@ -15,16 +15,15 @@ public class VisibleColumnsCtrl : MonoBehaviour
     int totalVisibleTiles = 11;
     int SeaTileMax = 4;
     int StartFlatTiles = 3;
-    int MapSize = 20;
+    int MapSize = 60;
     GameObject[] ActiveTiles;
     float Xoffset;
     ColumnData[] Columns;// array for logic 
-    List<ColumnData> RealColumnsUsed;//list for idkwhy
+  ///  List<ColumnData> RealColumnsUsed;//list for idkwhy
 
     private void Awake()
     {
         GenerateMap();
-        RealColumnsUsed = new List<ColumnData>();
         ActiveTiles = new GameObject[totalVisibleTiles];
     }
 
@@ -56,11 +55,15 @@ public class VisibleColumnsCtrl : MonoBehaviour
         return false;
     }
 
+    public void SetColumnDataCoinPickup(int id ) {
+        Columns[id].Mypickup = MyEnums.Pickup.None;
+    }
+
     void BuildBAseVisible()
     {
         for (int c = 0; c < totalVisibleTiles; c++)
         {
-            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[c]);
+            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[c],c);
             ColumnObj.transform.position += new Vector3((RightIndex * Xoffset) - 12.8f, -5.2f, 0);
             ActiveTiles[c] = ColumnObj;
             RightIndex++;
@@ -81,7 +84,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
                 ActiveTiles[l] = ActiveTiles[l + 1]; //now we have a duplicat at the end and no ref to the firstguy except for FIRSTTILE ref
             }
             Destroy(LeftMostTileRef);
-            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[RightIndex]);
+            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[RightIndex], RightIndex);
 
             ColumnObj.transform.position += new Vector3(cashedLastTilePosX - 0.1f, -5.2f, 0);
             LeftIndex++;
@@ -106,7 +109,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
             LeftIndex--;
             RightIndex--;
             //make new Right column 
-            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[LeftIndex]);
+            GameObject ColumnObj = tileGen.BuildColumnFromBluePrint(Columns[LeftIndex], LeftIndex);
 
             ColumnObj.transform.position += new Vector3(cashedFirstTilePosX + 0.1f, -5.2f, 0);
 
@@ -125,7 +128,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
             Columns[col] = new ColumnData(-1, MyEnums.Season.Summer);
         }
         //build the center
-        for (int x = SeaTileMax; x < MapSize - SeaTileMax; x++)
+        for (int x = SeaTileMax ; x < MapSize - SeaTileMax; x++)
         {
             int columnState;
 
@@ -136,14 +139,20 @@ public class VisibleColumnsCtrl : MonoBehaviour
             else { columnState = StateChecker(Columns[x - 1].StateNumber1); }
             Columns[x].StateNumber1 = columnState;
             Columns[x].MySeason = MyEnums.Season.Spring;
+            Columns[x].Mypickup = MyEnums.Pickup.None;
+            //randome coin places after the base flat onle. 
+            //can only be set to coin pickup if it is a flat like stat 0 2 4 
+            if (x > SeaTileMax + StartFlatTiles)
+            {
+                if (columnState == 0 || columnState == 2 || columnState == 4) {
+                    Columns[x].Mypickup = (Random.Range(0,2)==0)?  MyEnums.Pickup.CoinPickup: MyEnums.Pickup.None;
+                }
+            }
+           
+
         }
 
-        ////
-        //for (int x = MapSize - SeaTileMax; x < SeaTileMax; x++)
-        //{
-        //    Columns[x].StateNumber1 = -1;
-        //    Columns[x].MySeason = MyEnums.Season.Spring;
-        //}
+
     }
 
     int StateChecker(int arglast)

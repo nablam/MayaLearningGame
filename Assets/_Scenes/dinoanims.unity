@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdbac87279076c4fb3b55a29d030887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodTargetObject: {fileID: 0}
+  VisColCTRL: {fileID: 1196661198}
   _moveToFoodUpdate: 0
   isgrounded: 0
   hasJumped: 0
@@ -2994,6 +2994,7 @@ MonoBehaviour:
     type: 2}
   TileWater_Sea: {fileID: 1749499609791594, guid: 92425ede86ea42142a36e9f851bc1be2,
     type: 2}
+  CoinObj: {fileID: 1035844340748610, guid: 3f9ea137b30127f48b972386ce6683d6, type: 2}
   TileGrass_Flat: {fileID: 1707087610800716, guid: 0bb442fd4a5749c40820953f01d08cba,
     type: 2}
   TileGrass_Hill_L: {fileID: 1868341183852910, guid: 4dada71414ed6644fae7f0f5ada24530,
