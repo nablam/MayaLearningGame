@@ -7,7 +7,7 @@ public class VisibleColumnsCtrl : MonoBehaviour
     public float cashedFirstTilePosX;
     public float cashedLastTilePosX;
     public TileGenerator tileGen;
-    public int CoinsNeededMAx10=10;
+    int CoinsNeededMAx10;
     GameObject LeftMostTileRef;
     GameObject RightMostTileRef;
     int RightIndex;
@@ -15,7 +15,10 @@ public class VisibleColumnsCtrl : MonoBehaviour
     int totalVisibleTiles = 11;
     int SeaTileMax = 4;
     int StartFlatTiles = 3;
-    int MapSize = 60;
+    /// <summary>
+    /// Minimum MApsize is # of visible tiles .. which is 11 when sprites are 256
+    /// </summary>
+    int MapSize;
     int CoinsCount = 0; //is incremented at mapgeneration
     GameObject[] ActiveTiles;
     float Xoffset;
@@ -24,15 +27,32 @@ public class VisibleColumnsCtrl : MonoBehaviour
 
     private void Awake()
     {
-        GenerateMap();
-        Debug.Log("making " + CoinsCount + " coins");
+
         ActiveTiles = new GameObject[totalVisibleTiles];
     }
 
     void Start()
     {
+
+        if (PersistantScript.Instance != null)
+        {
+            CoinsNeededMAx10 = PersistantScript.Instance.CoinsToPickup;
+            MapSize = PersistantScript.Instance.CoinsToPickupMapSize;
+
+        }
+        else
+        {
+            CoinsNeededMAx10 = 1;
+            MapSize = 11; 
+        }
+
+        Debug.Log("making " + CoinsCount + " coins");
+        GenerateMap();
+
         Xoffset = tileGen.GetTileSize();
         BuildBAseVisible();
+   
+
     }
 
     void Update()

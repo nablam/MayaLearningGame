@@ -130,10 +130,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4932661883964972}
-  - component: {fileID: 114847934733903588}
-  - component: {fileID: 114552544564640794}
-  - component: {fileID: 114231146834769576}
-  - component: {fileID: 114186363983419122}
+  - component: {fileID: 50528763483574100}
+  - component: {fileID: 70990891680224764}
+  - component: {fileID: 114601009379422684}
   m_Layer: 0
   m_Name: DinoLAndCruizer
   m_TagString: Untagged
@@ -514,13 +513,48 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1406200400495340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.54, y: -3.59, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.64, y: -1.34, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 4470351748723194}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50528763483574100
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406200400495340}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5
+--- !u!70 &70990891680224764
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406200400495340}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.65, y: 0.18}
+  m_Size: {x: 2.43, y: 3.33}
+  m_Direction: 0
 --- !u!95 &95114892928573608
 Animator:
   serializedVersion: 3
@@ -538,42 +572,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114186363983419122
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406200400495340}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3f7dd5272406d848901e3fadf50844f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dinoctrl: {fileID: 0}
-  FoodTargetObject: {fileID: 0}
---- !u!114 &114231146834769576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406200400495340}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 981450caf8198c447a7f7f10f008b5ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114552544564640794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406200400495340}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8eae00ec3a1ba4dadfeee96a9fee6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114847934733903588
+--- !u!114 &114601009379422684
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -581,12 +580,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1406200400495340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0f1cce8b467cbc409fc72bf9028e3d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bdbac87279076c4fb3b55a29d030887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodTargetObject: {fileID: 0}
-  _moveToFoodUpdate: 1
-  SceneFoods: []
+  VisColCTRL: {fileID: 0}
+  _moveToFoodUpdate: 0
+  isgrounded: 0
+  hasJumped: 0
 --- !u!212 &212038016800334794
 SpriteRenderer:
   m_ObjectHideFlags: 1

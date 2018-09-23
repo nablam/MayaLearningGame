@@ -17,7 +17,7 @@ public class DinoSceneMNGR : MonoBehaviour {
 
     public void ResetLevel()
     {
-        SceneManager.LoadScene("DinoScene");
+        SceneManager.LoadScene("DinoSceneoriginal");
     }
     public void LoadMainMenu()
     {
