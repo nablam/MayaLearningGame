@@ -22,38 +22,31 @@ public enum Commands
 public static class FloatHelper {
     static Dictionary<Commands, byte[]> FloatCommands = new Dictionary<Commands, byte[]>
         {
-            { Commands.NONE,        new byte[4] { (byte)0x00, (byte)0x00, (byte)0x80, (byte)0xbf } },
-            { Commands.FIRE,      new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0xcc, (byte)0x3d } },
-            { Commands.RELOAD,   new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0x4c, (byte)0x3e } },
-            { Commands.OUTOFAMMO,     new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0xcc, (byte)0x3e } },
-            { Commands.NEXTGUN, new byte[4] { (byte)0x9a, (byte)0x99, (byte)0x19, (byte)0x3f } },
-            { Commands.PREVIOUSGUN,      new byte[4] { (byte)0x33, (byte)0x33, (byte)0x33, (byte)0x3f } },
-            { Commands.SINGLE,        new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0x4c, (byte)0x3f } },
-            { Commands.AUTO,        new byte[4] { (byte)0x66, (byte)0x66, (byte)0x66, (byte)0x3f } },
+            { Commands.NONE,            new byte[4] { (byte)0x00, (byte)0x00, (byte)0x80, (byte)0xbf } },
+            { Commands.FIRE,            new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0xcc, (byte)0x3d } },
+            { Commands.RELOAD,          new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0x4c, (byte)0x3e } },
+            { Commands.OUTOFAMMO,       new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0xcc, (byte)0x3e } },
+            { Commands.NEXTGUN,         new byte[4] { (byte)0x9a, (byte)0x99, (byte)0x19, (byte)0x3f } },
+            { Commands.PREVIOUSGUN,     new byte[4] { (byte)0x33, (byte)0x33, (byte)0x33, (byte)0x3f } },
+            { Commands.SINGLE,          new byte[4] { (byte)0xcd, (byte)0xcc, (byte)0x4c, (byte)0x3f } },
+            { Commands.AUTO,            new byte[4] { (byte)0x66, (byte)0x66, (byte)0x66, (byte)0x3f } },
         };
 
     
     public static float CommandTofloat(this float f, Commands argcomande)
     {
-
-        f = System.BitConverter.ToSingle(FloatCommands[argcomande], 0);
-
-        return f;
+        return System.BitConverter.ToSingle(FloatCommands[argcomande], 0);
     }
 
     public static Commands FloatToCommand(this float f)
     {
-
-        Commands c = (Commands)Mathf.FloorToInt(f*10);
-        return c;
+        return (Commands)Mathf.FloorToInt(f*10);
     }
 
 }
 
 
 public class FloatBinner : MonoBehaviour {
-
-   
 
     int startIndex = 0;
     byte[] mybyteArray;
