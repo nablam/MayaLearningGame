@@ -155,6 +155,7 @@ public class dinosimplemove : MonoBehaviour {
             if (id!=null) {
                 Debug.Log("hit__id__ " + id);
                 VisColCTRL.SetColumnDataCoinPickup((int)id);
+                collision.gameObject.GetComponent<CoinLandScrol>().Explode(collision.gameObject.transform.position );
                 Destroy(collision.gameObject);
             }
         }

@@ -10,6 +10,7 @@ public class TileGenerator : MonoBehaviour
     public GameObject TileWater_Sea;
     public GameObject CoinObj;
 
+
     public GameObject TileGrass_Flat;
     public GameObject TileGrass_Hill_L;
     public GameObject TileGrass_Hill_R;
@@ -218,6 +219,9 @@ public class TileGenerator : MonoBehaviour
                 break;
         }
         Column.name = "state_" + argx;
+        if (Cointemp != null) {
+            Cointemp.GetComponent<CoinLandScrol>().SetColumnTransform(Column.transform);
+        }
         return Column;
     }
 
