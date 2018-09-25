@@ -18,4 +18,13 @@ public class SceneSelector : MonoBehaviour {
     {
         SceneManager.LoadScene("TrainScene");
     }
+    public void GoTo_DinoScene()
+    {
+        SceneManager.LoadScene("DinoScene");
+    }
+
+    public void GoTo_CoinsPreScene()
+    {
+        SceneManager.LoadScene("CoinsPreScene");
+    }
 }
