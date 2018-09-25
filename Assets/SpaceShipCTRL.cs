@@ -26,6 +26,10 @@ public class SpaceShipCTRL : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            PersistantScript.Instance.PlayAudioCycle();
+        }
+
         if (Mayaplaced && Nabilplaced && Julieplaced) {
             if (!ShipLAunched)
             StartCoroutine(Launchin2());
@@ -58,6 +62,7 @@ public class SpaceShipCTRL : MonoBehaviour {
         Debug.Log("hit");
         if (argCollider.gameObject.GetComponent<DragMe>().Type == MyEnums.ColliderTypes.Type_Maya)
         {
+            PersistantScript.Instance.PlayAudio(MyEnums.SoundName.Maya);
             Destroy(argCollider.gameObject);
             Maya.SetActive(true);
             Mayaplaced = true;
@@ -66,6 +71,7 @@ public class SpaceShipCTRL : MonoBehaviour {
         else
         if (argCollider.gameObject.GetComponent<DragMe>().Type == MyEnums.ColliderTypes.Type_Julie)
         {
+            PersistantScript.Instance.PlayAudio(MyEnums.SoundName.Mamma);
             Destroy(argCollider.gameObject);
             Julie.SetActive(true);
             Julieplaced = true;
@@ -74,6 +80,8 @@ public class SpaceShipCTRL : MonoBehaviour {
         else
         if (argCollider.gameObject.GetComponent<DragMe>().Type == MyEnums.ColliderTypes.Type_Nabil)
         {
+            PersistantScript.Instance.PlayAudio(MyEnums.SoundName.Daddy);
+
             Destroy(argCollider.gameObject);
             Nabil.SetActive(true);
             Nabilplaced = true;

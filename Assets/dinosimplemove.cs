@@ -146,7 +146,7 @@ public class dinosimplemove : MonoBehaviour {
 
     }
 
-
+    int coinsEaten = 0;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("hit____ " + collision.gameObject.name);
@@ -157,6 +157,9 @@ public class dinosimplemove : MonoBehaviour {
                 VisColCTRL.SetColumnDataCoinPickup((int)id);
                 collision.gameObject.GetComponent<CoinLandScrol>().Explode(collision.gameObject.transform.position );
                 Destroy(collision.gameObject);
+                coinsEaten++;
+                if (coinsEaten > 10) coinsEaten = 0; //play ok 
+                PersistantScript.Instance.PlayAudio((MyEnums.SoundName) coinsEaten);
             }
         }
     }

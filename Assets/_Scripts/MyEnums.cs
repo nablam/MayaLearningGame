@@ -58,4 +58,27 @@ public class MyEnums : MonoBehaviour
         FruitPickup,
         VeggiePickeup
     }
+    public enum SoundName {
+        OK,
+        One,
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Pasha,
+        SpaceShip,
+        Daddy,
+        DaddyNo,
+        GoToSpaceShip,
+        Mamma,
+        MammaNo,
+        Maya,
+        Mayano
+
+    }
 }

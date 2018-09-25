@@ -34,6 +34,10 @@ public class DragMe : MonoBehaviour {
 
         offset = gameObject.transform.position -
             Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+
+        if (Type == MyEnums.ColliderTypes.Type_Pasha) {
+            PersistantScript.Instance.PlayAudio(MyEnums.SoundName.Pasha);
+        }
     }
 
 

@@ -15,11 +15,12 @@ public class NumberOfCoinsPicker : MonoBehaviour {
 
 	void Start () {
         tm.transform.position = new Vector3(Random.Range(-7, 8), Random.Range(-4, 5), 1);
-        numOfCoins = Random.Range(1, 6);
+        numOfCoins = Random.Range(1, 11);
         tm.text = numOfCoins.ToString();
         if (PersistantScript.Instance != null)
         {
             PersistantScript.Instance.CoinsToPickup = numOfCoins;
+            PersistantScript.Instance.PlayAudio((MyEnums.SoundName)numOfCoins);
         }
         StartCoroutine(Wait5Seconds());
     }
