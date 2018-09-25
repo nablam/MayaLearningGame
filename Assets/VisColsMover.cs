@@ -76,15 +76,26 @@ public class VisColsMover : MonoBehaviour
     }
 
 
+    public void MoveGameLEFT() { ALL_LEFTWARD(); _dsm.Action_Direction(-1); _dsm.Action_MoveToFood(); }
+    public void MoveGameRIGHT() { ALL_RIGHTYTHEN(); _dsm.Action_Direction(1); _dsm.Action_MoveToFood(); }
+    public void MoveGameSTOP()
+    {
+        _dsm.Action_WaitForFood();
+        DoNothing();
+    }
+
+    public void MoveJumpDino() {  _dsm.ActionJump(); }
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow)) { ALL_LEFTWARD(); _dsm.Action_Direction(-1); _dsm.Action_MoveToFood(); }
-        else
-           if (Input.GetKey(KeyCode.RightArrow)) { ALL_RIGHTYTHEN(); _dsm.Action_Direction(1); _dsm.Action_MoveToFood(); }
-        else
-        {
-            _dsm.Action_WaitForFood();
-            DoNothing();
-        }
+        //if (Input.GetKey(KeyCode.LeftArrow)) { MoveGameLEFT(); }
+        //else
+        //   if (Input.GetKey(KeyCode.RightArrow)) { MoveGameRIGHT(); }
+        //else
+        //{
+        //    MoveGameSTOP();
+
+
+        //}
     }
 }

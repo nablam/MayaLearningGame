@@ -42,8 +42,8 @@ public class VisibleColumnsCtrl : MonoBehaviour
         }
         else
         {
-            CoinsNeededMAx10 = 1;
-            MapSize = 11; 
+            CoinsNeededMAx10 = 5;
+            MapSize = 55; 
         }
 
         Debug.Log("making " + CoinsCount + " coins");
