@@ -152,14 +152,16 @@ public class dinosimplemove : MonoBehaviour {
         //Debug.Log("hit____ " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Pickup") ) {
            int? id= collision.gameObject.GetComponent<CoinLandScrol>().ID_ofvisibleColumn;
-            if (id!=null) {
+            if (id != null) {
                 Debug.Log("hit__id__ " + id);
                 VisColCTRL.SetColumnDataCoinPickup((int)id);
-                collision.gameObject.GetComponent<CoinLandScrol>().Explode(collision.gameObject.transform.position );
+                collision.gameObject.GetComponent<CoinLandScrol>().Explode(collision.gameObject.transform.position);
                 Destroy(collision.gameObject);
                 coinsEaten++;
                 if (coinsEaten > 10) coinsEaten = 0; //play ok 
-                PersistantScript.Instance.PlayAudio((MyEnums.SoundName) coinsEaten);
+                if (PersistantScript.Instance != null) {
+                    PersistantScript.Instance.PlayAudio((MyEnums.SoundName)coinsEaten);
+                }
             }
         }
     }

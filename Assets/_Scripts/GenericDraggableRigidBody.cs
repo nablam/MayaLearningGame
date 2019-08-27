@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 //[RequireComponent(typeof(Rigidbody))]
-public class GenericDraggableRigidBody : MonoBehaviour {
+public class GenericDraggableRigidBody : MonoBehaviour
+{
 
 
     float _minY = -5f;
@@ -21,10 +20,11 @@ public class GenericDraggableRigidBody : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        if (rb.isKinematic) {
+        if (rb.isKinematic)
+        {
             rb.isKinematic = false;
         }
-            rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.None;
         rb.freezeRotation = true;
         rb.velocity = new Vector2(0, 0);
         rb.gravityScale = 0;
@@ -46,7 +46,7 @@ public class GenericDraggableRigidBody : MonoBehaviour {
         }
 
         rb.freezeRotation = false;
-      //  rb.velocity = new Vector2(0, 0);
+        //  rb.velocity = new Vector2(0, 0);
         rb.gravityScale = 2;
     }
     private void FixedUpdate()
@@ -57,8 +57,9 @@ public class GenericDraggableRigidBody : MonoBehaviour {
         CheckOutOfBOundTop();
     }
 
-    void CheckOutOfBOundLow() {
-        if (transform.position.y <= _minY  )
+    void CheckOutOfBOundLow()
+    {
+        if (transform.position.y <= _minY)
         {
             rb.freezeRotation = true;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -79,7 +80,7 @@ public class GenericDraggableRigidBody : MonoBehaviour {
             rb.velocity = new Vector2(3, 0);
             rb.gravityScale = 0;
             //rb.isKinematic = true;
-            transform.position = new Vector3(_minX+_margin, this.transform.position.y, this.transform.position.z);
+            transform.position = new Vector3(_minX + _margin, this.transform.position.y, this.transform.position.z);
         }
     }
     void CheckOutOfBOundRight()
@@ -101,13 +102,13 @@ public class GenericDraggableRigidBody : MonoBehaviour {
     {
         if (transform.position.y >= _maxY)
         {
-            
+
             rb.freezeRotation = true;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.velocity = new Vector2(0, 0);
             rb.gravityScale = 0;
             rb.isKinematic = true;
-            transform.position = new Vector3(this.transform.position.x, _maxY-_margin, this.transform.position.z);
+            transform.position = new Vector3(this.transform.position.x, _maxY - _margin, this.transform.position.z);
             rb.gravityScale = 2;
 
         }
